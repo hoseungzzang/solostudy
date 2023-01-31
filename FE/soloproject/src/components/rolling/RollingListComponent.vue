@@ -59,6 +59,7 @@
 
 
   const getRollings = async () => {
+    console.log(route.query)
     data.value = await getRollingList( route.query )
     pageInfo.value.pageNum = data.value.page
     pageInfo.value.pageSize = data.value.size
