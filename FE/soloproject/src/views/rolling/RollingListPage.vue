@@ -1,7 +1,7 @@
 <template>
   <BaseLayout>
     <div :key="componentKey">
-      <RollingListComponent :page="pages.page" @handleMoveAdd="handleMoveAdd" @handleMoveDetail="handleMoveDetail" @handlePageList="handlePageList" @handleChangePage="handleChangePage" @handleSearchList="handleSearchList"></RollingListComponent>
+      <RollingListComponent :page="pages.page" @handleMoveAdd="handleMoveAdd" @handleMoveDetail="handleMoveDetail" @handlePageList="handlePageList" @handleChangePage="handleChangePage" ></RollingListComponent>
     </div>
   </BaseLayout>
 </template>
@@ -25,19 +25,23 @@
     router.push({ name: 'RollingDetailPage', params: { id: id }, query: { page: pages.value.page } })
   }
 
-  const handlePageList = (page) => {
-    router.push({ name: 'RollingListPage', query: { page: page } })
+  const handlePageList = (page,searchBox) => {
+    if (searchBox.keyword==''){
+      router.push({ name: 'RollingListPage', query: { page: page } })
+      return
+    }
+    router.push({name: 'RollingListPage', query: { page: page , type: searchBox.searchType, keyword: searchBox.searchValue }})
   }
 
-  const handleChangePage = ( page, size ) => {
+  const handleChangePage = ( page, size ,searchBox) => {
     pages.value.page = page
     pages.value.size = size
-    handlePageList(page)
+    handlePageList(page,searchBox)
   }
 
-  const handleSearchList = ( search ) => {
+/*  const handleSearchList = ( search ) => {
     router.push({name: 'RollingListPage', query: { type: search.searchType, keyword: search.searchValue }})
-  }
+  }*/
 
   router.beforeEach((to, from, next) => {
     // if (!to.query.page) {
