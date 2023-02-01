@@ -7,7 +7,7 @@
                     variant="underlined"></v-combobox>
         <v-text-field class="searchValueBox" v-model="searchBox.searchValue" label="Keyword" variant="underlined"
                       required></v-text-field>
-        <v-btn @click="emits('handleSearchList', searchBox)" variant="text" style="margin-top: 0.7em;">Search</v-btn>
+        <v-btn @click="getRollingSearch" variant="text" style="margin-top: 0.7em;">Search</v-btn>
       </v-form>
     </v-col>
   </v-row>
@@ -39,28 +39,33 @@
   <div class="text-center">
     <v-pagination v-model="pageInfo.pageNum" :show-first-last-page="true" :total-visible="pageInfo.pageSize"
                   :length="pageInfo.length" :start="pageInfo.start"
-                  @click="() => emits('handleChangePage', pageInfo.pageNum, pageInfo.pageSize)"></v-pagination>
+                  @click="() => emits('getRollingSearch', pageInfo.pageNum, pageInfo.pageSize)"></v-pagination>
     <br>
   </div>
 </template>
 
 <script setup>
-  import {getRollingList} from "@/apis/rolling/RollingApis";
+import {getRollingList, getRollingSearchList} from "@/apis/rolling/RollingApis";
   import {onMounted, ref} from "vue";
   import {useRoute} from "vue-router";
 
 
   const props = defineProps(['page'])
-  const emits = defineEmits(['handleMoveAdd', 'handleMoveDetail', 'handlePageList', 'handleChangePage', 'handleSearchList'])
+  const emits = defineEmits(['handleMoveAdd', 'handleMoveDetail', 'handlePageList', 'handleChangePage'])
   const data = ref({})
   const pageInfo = ref({pageNum: 1, pageSize: 10, length: 10, start: 1})
-  const searchBox = ref({item: ['ALL', 'Title', 'Target'], searchType: 'ALL', searchValue: ''})
-  const route =useRoute()
+  const searchBox = ref({item: ['TITLE', 'TARGET'], searchType: 'TITLE', searchValue: ''})
 
 
   const getRollings = async () => {
-    console.log(route.query)
-    data.value = await getRollingList( route.query )
+    data.value = await getRollingList( props.page )
+    pageInfo.value.pageNum = data.value.page
+    pageInfo.value.pageSize = data.value.size
+    pageInfo.value.length = data.value.last
+  }
+
+  const getRollingSearch = async () => {
+    data.value = await getRollingSearchList(pageInfo.value.pageNum, searchBox.value)
     pageInfo.value.pageNum = data.value.page
     pageInfo.value.pageSize = data.value.size
     pageInfo.value.length = data.value.last

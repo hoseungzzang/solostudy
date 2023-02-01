@@ -1,28 +1,29 @@
 import axios from "axios";
 
 
-/*const domain = 'http://192.168.1.127:8080'*/
-const domain = 'http://localhost:8080'
+const domain = 'http://192.168.1.127:8080'
 
 
 export const addRolling = async (rolling) => {
   // const res = await axios.post(`http://localhost:8080/rolling/add`, { 'name': rolling })
-  const res = await axios.post(`${domain}/rolling`, rolling)
+  const res = await axios.post(`http://localhost:80/rolling`, rolling)
   return res.data
 }
 
-export const getRollingList = async ( param ) => {
-  //console.log(Object.keys('page'))
-  console.log(Object.keys('page'))
-  if ( Object.keys('page') ) { param.push({page: 1}) }
-  if ( !param.type || !param.keyword ) {
-    console.log(param)
-    const res = await axios.get(`${domain}/api/rollings/list?page=${param.page}`)
-    return res.data
+export const getRollingList = async ( page ) => {
+  if ( !page ) {
+    page = 1
   }
 
-  const res = await axios.get(`${domain}/api/rollings/list?page=${param.page}&type=${param.type}&keyword=${param.keyword}`)
+  const res = await axios.get(`${domain}/api/rollings/list?page=${page}`)
+  return res.data
+
+  // const res = await axios.get(`${domain}/api/rollings/list?page=${page}&type=${type}&keyword=${keyword}`)
   // const res = await axios.get(`http://localhost:80/rolling`)
+}
+
+export const getRollingSearchList = async ( page, search ) => {
+  const res = await axios.get(`${domain}/api/rollings/list?page=${page}&type=${search.type}&keyword=${search.keyword}`)
   return res.data
 }
 

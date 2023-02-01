@@ -13,11 +13,8 @@
   import {ref} from "vue";
 
   const componentKey = ref(0);
-  const pages = ref({page: null, size: null})
-  const route = useRoute()
+  const pages = ref({page: 1, size: null})
   const router = useRouter()
-
-  pages.value = route.query
 
 
   const handleMoveAdd = () => {
