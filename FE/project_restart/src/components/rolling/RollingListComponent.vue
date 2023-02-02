@@ -1,18 +1,5 @@
 <template>
-  <div>
-    <v-row>
-      <v-col cols="12">
-        <v-btn class="ma-4" color="success">ADD</v-btn>
-        <v-form class="ma-4 searchBox">
-          <v-combobox class="searchTypeBox" label="Type" v-model="searchBox.searchType" :items="searchBox.items"
-                      variant="underlined"></v-combobox>
-          <v-text-field class="searchValueBox" v-model="searchBox.searchValue" label="Keyword" variant="underlined"
-                        required></v-text-field>
-          <v-btn variant="text" style="margin-top: 0.7em;" @click ="emits('handleSearchRoute',searchBox)">Search</v-btn>
-        </v-form>
-      </v-col>
-    </v-row>
-  </div>-
+
   <v-table>
     <thead>
       <tr>
@@ -54,14 +41,11 @@ import {getRollingSearchList} from "@/apis/rolling/RollingApis";
 
 const data = ref({})
 const pageInfo = ref({page : null , size : null , last : null, start : null})
-const searchBox = ref({items : ['TITLE','TARGET'],
-  searchType : props.pageSearchBox.searchType , searchValue : props.pageSearchBox.searchValue})
-const emits = defineEmits(['handleMoveRoute','handleSearchRoute'])
+const emits = defineEmits(['handleMoveRoute'])
 const props = defineProps(['pages','pageSearchBox'])
 
 const clickMovePage = () =>{
-  emits('handleMoveRoute',pageInfo.value.page,props.pageSearchBox)
-
+  emits('handleMoveRoute',pageInfo.value.page)
 }
 
 const getRollingList = async () => {
@@ -74,8 +58,6 @@ const getRollingList = async () => {
   pageInfo.value.start = data.value.start
 
 }
-
-
   getRollingList()
 
 </script>

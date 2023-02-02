@@ -1,8 +1,9 @@
 <template>
   <BaseLayout>
+    <RollingSearchComponent :pages="pages" :pageSearchBox ="pageSearchBox" @handleSearchRoute = "handleSearchRoute"></RollingSearchComponent>
     <div :key="refreshKey">
       <RollingListComponent :pages="pages" :pageSearchBox ="pageSearchBox" @handleMoveRoute = "handleMoveRoute"
-      @handleSearchRoute = "handleSearchRoute"></RollingListComponent>
+      ></RollingListComponent>
     </div>
   </BaseLayout>
 </template>
@@ -15,6 +16,7 @@ import RollingListComponent from "@/components/rolling/RollingListComponent.vue"
 import {useRoute, useRouter} from "vue-router";
 import BaseLayout from "@/layouts/rolling/BaseLayout.vue";
 import {ref} from "vue";
+import RollingSearchComponent from "@/components/rolling/RollingSearchComponent.vue";
 const router = useRouter()
 const route = useRoute()
 
@@ -31,14 +33,12 @@ router.beforeEach((to,from,next)=>{
   next()
 })
 
-const handleMoveRoute = (pageNum,searchBox) =>{
+const handleMoveRoute = (pageNum) =>{
   console.log("handleMoveRoute")
-  console.log(searchBox)
   pages.value.page = pageNum
 
-  if(searchBox.searchType){
-    console.log(pageSearchBox.value)
-    router.push({name : "RollingListPage", query :{page : pages.value.page  , type: searchBox.searchType , keyword: searchBox.searchValue} })
+  if(pageSearchBox.value.searchType){
+    router.push({name : "RollingListPage", query :{page : pages.value.page  , type: pageSearchBox.value.searchType , keyword: pageSearchBox.value.searchValue} })
   }else{
 
     router.push({name : "RollingListPage", query :{page : pages.value.page } })

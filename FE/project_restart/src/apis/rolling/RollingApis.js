@@ -27,8 +27,8 @@ export const getRollingSearchList = async ( page, search ) => {
   //const res = await axios.get(`${domain}/api/rollings/list?page=${page}&types=${search.searchType}&keyword=${search.searchValue}`)
 //, types: search.searchType, keyword: search.searchValue }
 
-  const res = await axios.get(`${domain}/api/rollings/list`,  { params: { page: page || 1
-      , types: search.searchType, keyword: search.searchValue}})
+  const res = await axios.get(`${domain}/api/rollings/list`,
+    { params: { page: page || 1, types: search.searchType, keyword: search.searchValue}})
 
   return res.data
 }
