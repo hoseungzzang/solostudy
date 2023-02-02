@@ -22,6 +22,7 @@ public class CustomSecurityConfig {
         log.info("-----------------------");
         http.authorizeRequests().antMatchers("/api/time/**").permitAll();
         http.authorizeRequests().antMatchers("/api/rollings/**").permitAll();
+        http.authorizeRequests().antMatchers("/image**").permitAll();
 
         http.cors(httpSecurityCorsConfigurer -> {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
