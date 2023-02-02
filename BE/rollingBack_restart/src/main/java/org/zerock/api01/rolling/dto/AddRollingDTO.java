@@ -20,7 +20,7 @@ public class AddRollingDTO {
     public AddRollingDTO(AddRollingRequest request) {
         this.title = request.getTitle();
         this.target = request.getTarget();
-        this.imgSrc = request.getImgSrc();
+        this.imgSrc = request.getImgSrc().get(0).getName();
         this.writer = request.getWriter();
         this.createDt = LocalDate.now();
     }
