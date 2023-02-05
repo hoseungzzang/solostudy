@@ -15,4 +15,6 @@ public class AddRollingRequest {
     private String target;
     private List<AddImgDTO> imgSrc;
     private Long writer;
+
+    private Long s_img;
 }

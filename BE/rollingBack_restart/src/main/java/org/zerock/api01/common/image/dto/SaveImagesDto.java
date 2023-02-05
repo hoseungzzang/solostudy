@@ -1,18 +1,17 @@
 package org.zerock.api01.common.image.dto;
 
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
+import org.zerock.api01.rolling.dto.AddImgDTO;
 
 import java.util.List;
 
 @Getter
 public class SaveImagesDto {
-    private List<MultipartFile> files;
+    private String name;
+    private List<AddImgDTO> files;
 
-    private String title;
-
-    public SaveImagesDto(List<MultipartFile> files, String title) {
+    public SaveImagesDto(List<AddImgDTO> files, String name) {
         this.files = files;
-        this.title = title;
+        this.name= name;
     }
 }

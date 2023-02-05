@@ -1,21 +1,23 @@
 package org.zerock.api01.common.image.dto;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+import org.zerock.api01.rolling.dto.AddImgDTO;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaveImagesRequest {
-    private String title;
-    private List<MultipartFile> files;
+
+    private String name;
+    private List<AddImgDTO> files;
 
     public SaveImagesDto convert() {
-        return new SaveImagesDto(this.files, title);
+
+        return new SaveImagesDto(this.files, this.name);
     }
 
 }

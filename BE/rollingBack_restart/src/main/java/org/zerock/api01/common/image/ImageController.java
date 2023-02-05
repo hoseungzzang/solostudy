@@ -1,6 +1,7 @@
 package org.zerock.api01.common.image;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@Log4j2
 public class ImageController {
 
     private final ImageService imageService;
@@ -35,10 +36,11 @@ public class ImageController {
 
     // 이미지 여러개 저장
     @PostMapping("/images")
-    public List<String> saveImages(SaveImagesRequest request) {
-        List<String> imageUris = imageService.saveImages(request.convert());
+    public List<String> saveImages(@RequestBody SaveImagesRequest request) {
 
-        return imageUris;
+        List<String> imageUris = imageService.saveImages(request.convert());
+        //return imageUris;
+        return null;
     }
 
 

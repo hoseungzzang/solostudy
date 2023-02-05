@@ -33,6 +33,7 @@ public class RollingController {
     @PostMapping
     public ResultDTO<AddRollingDTO> addRolling(@RequestBody AddRollingRequest request) {
         log.info("re-----------------------------------------------------------");
+        log.info(request);
         AddRollingDTO addRollingDTO = new AddRollingDTO(request);
         rollingService.addRolling(addRollingDTO);
 

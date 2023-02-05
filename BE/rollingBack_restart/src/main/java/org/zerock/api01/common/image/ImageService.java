@@ -45,7 +45,7 @@ public class ImageService {
     }
 
 
-    public List<String> saveImages(SaveImagesDto dto) {
+/*    public List<String> saveImages(SaveImagesDto dto) {
         List<String> urls = new ArrayList<>();
         List<MultipartFile> files = dto.getFiles();
         for (MultipartFile file : files) {
@@ -53,7 +53,8 @@ public class ImageService {
             urls.add(url);
         }
         return urls;
-    }
+
+    }*/
 
     private String saveImage(MultipartFile file) {
         if (!isImage(file)) {
