@@ -15,7 +15,7 @@
           <v-radio-group v-model="rollingInfo.s_img">
             <v-row class="justify-center">
               <div class="ma-6" v-for="(item,i) in rollingInfo.imgSrc" :key="i">
-                <v-img class="ma-2" :src="item.url" contain height="15vh" width="15vw"/>
+                <v-img class="ma-2" :src="item.url" contain height="15vh" width="15vw" src=`http:localhost:8080/${}`>
                 <v-row>
                   <v-radio :label="item.name" :value="i"></v-radio>
                   <v-btn @click="clickRemoveBtn(i)">삭제</v-btn>

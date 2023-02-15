@@ -37,8 +37,8 @@ public class ImageController {
     // 이미지 여러개 저장
     @PostMapping("/images")
     public List<String> saveImages(@RequestBody SaveImagesRequest request) {
-
-        List<String> imageUris = imageService.saveImages(request.convert());
+        log.info(request);
+       // List<String> imageUris = imageService.saveImages(request.convert());
         //return imageUris;
         return null;
     }
